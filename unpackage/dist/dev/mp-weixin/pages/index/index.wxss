@@ -24,36 +24,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.search.data-v-57280228 {
-  padding: 20rpx 10rpx;
-  background-color: #eb4450;
-}
-.search .search-item.data-v-57280228 {
-  position: relative;
-  height: 60rpx;
-  padding-left: 20rpx;
-  color: #ccc;
-  border-radius: 8rpx;
-  background-color: #fff;
-  box-sizing: border-box;
-}
-.search .search-item icon.data-v-57280228 {
-  position: absolute;
-  top: 17rpx;
-  left: 42%;
-  transition: all .6s;
-}
-.search .search-item input.data-v-57280228 {
-  padding-left: 46%;
-  padding-top: 8rpx;
-  transition: all .6s;
-}
-.search .search-item.isfocus icon.data-v-57280228 {
-  left: 20rpx;
-}
-.search .search-item.isfocus input.data-v-57280228 {
-  padding-left: 40rpx;
-}
 .swiper.data-v-57280228 {
   width: 750rpx;
   height: 340rpx;

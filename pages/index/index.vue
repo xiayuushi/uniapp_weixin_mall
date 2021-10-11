@@ -1,11 +1,6 @@
 <template>
 	<view>
-		<view class="search">
-			<view class="search-item" :class="{ 'isfocus':isfocus }">
-				<icon type="search" size="16" />
-				<input type="text" :value="value" placeholder="搜索" @focus="isfocus=true" @blur="isfocus=false" />
-			</view>
-		</view>
+		<Search />
 		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item class="swiper-item" v-for="item in swipers" :key="item.goods_id">
 				<navigator :url="item.navigator_url" :open-type="item.open_type">
@@ -39,14 +34,16 @@
 </template>
 
 <script>
+	import Search from '../../components/Search'
 	export default {
+		components: {
+			Search
+		},
 		data () {
 			return {
-				value: '',
-				isfocus: false,
 				isShow: false,
 				swipers: [],
-				navs: [],
+				navs: [], 
 				floors: []
 			}
 		},
@@ -88,44 +85,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.search {
-		padding: 20rpx 10rpx;
-		background-color: #eb4450;
-
-		.search-item {
-			position: relative;
-			height: 60rpx;
-			padding-left: 20rpx;
-			color: #ccc;
-			border-radius: 8rpx;
-			background-color: #fff;
-			box-sizing: border-box;
-
-			icon {
-				position: absolute;
-				top: 17rpx;
-				left: 42%;
-				transition: all .6s;
-			}
-
-			input {
-				padding-left: 46%;
-				padding-top: 8rpx;
-				transition: all .6s;
-			}
-
-			&.isfocus {
-				icon {
-					left: 20rpx;
-				}
-
-				input {
-					padding-left: 40rpx;
-				}
-			}
-		}
-	}
-
 	.swiper {
 		width: 750rpx;
 		height: 340rpx;
