@@ -1,0 +1,131 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.search.data-v-57280228 {
+  padding: 20rpx 10rpx;
+  background-color: #eb4450;
+}
+.search .search-item.data-v-57280228 {
+  position: relative;
+  height: 60rpx;
+  padding-left: 20rpx;
+  color: #ccc;
+  border-radius: 8rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.search .search-item icon.data-v-57280228 {
+  position: absolute;
+  top: 17rpx;
+  left: 42%;
+  transition: all .6s;
+}
+.search .search-item input.data-v-57280228 {
+  padding-left: 46%;
+  padding-top: 8rpx;
+  transition: all .6s;
+}
+.search .search-item.isfocus icon.data-v-57280228 {
+  left: 20rpx;
+}
+.search .search-item.isfocus input.data-v-57280228 {
+  padding-left: 40rpx;
+}
+.swiper.data-v-57280228 {
+  width: 750rpx;
+  height: 340rpx;
+}
+.swiper .swiper-item.data-v-57280228 {
+  width: 750rpx;
+  height: 340rpx;
+}
+.swiper .swiper-item image.data-v-57280228 {
+  width: 750rpx;
+  height: 340rpx;
+}
+.nav.data-v-57280228 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 194rpx;
+}
+.nav .nav-item image.data-v-57280228 {
+  width: 128rpx;
+  height: 140rpx;
+}
+.floor.data-v-57280228 {
+  box-sizing: border-box;
+}
+.floor .floor-item.data-v-57280228 {
+  margin-bottom: 10rpx;
+}
+.floor .floor-item .title.data-v-57280228 {
+  display: flex;
+  align-items: center;
+  width: 750rpx;
+  height: 88rpx;
+  background-color: #f4f4f4;
+}
+.floor .floor-item .title image.data-v-57280228 {
+  width: 750rpx;
+  height: 60rpx;
+}
+.floor .floor-item .product.data-v-57280228 {
+  height: 388rpx;
+  padding: 0 17rpx;
+  overflow: hidden;
+}
+.floor .floor-item .product .product-item.data-v-57280228 {
+  float: left;
+  width: 233rpx;
+  height: 188rpx;
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;
+}
+.floor .floor-item .product .product-item.data-v-57280228:first-child {
+  width: 232rpx;
+  height: 386rpx;
+  margin-left: 0;
+}
+.floor .floor-item .product .product-item image.data-v-57280228 {
+  width: 100%;
+  height: 100%;
+}
+.backtop.data-v-57280228 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 20rpx;
+  bottom: 40rpx;
+  width: 80rpx;
+  height: 80rpx;
+  padding: 20rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
