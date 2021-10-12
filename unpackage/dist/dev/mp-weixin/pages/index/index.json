@@ -2,6 +2,6 @@
   "navigationBarTitleText": "首页",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "search": "/components/Search/index"
+    "searchbar": "/components/searchbar/index"
   }
 }

@@ -2,39 +2,58 @@
 	<view>
 		<view class="top">
 			<icon type="search" size="20" />
-			<input type="text" v-model="value" placeholder="请输入你想要的商品" @confirm="search" />
-			<button type="default" plain v-if="value.length !== 0 && value.trim()" @tap="cancel">取消</button>
+			<input type="text" v-model="value" placeholder="请输入你想要的商品" @confirm.stop="search" />
+			<button type="default" plain v-if="value.length !== 0 && value.trim()" @tap.stop="cancel">取消</button>
 		</view>
 		<view class="content">
 			<view class="title">
 				<text>历史搜索</text>
-				<icon type="clear" size="20" @tap="clear" />
+				<icon type="clear" size="20" @tap.stop="clear" v-if="searchList.length !== 0" />
 			</view>
 			<view class="tag">
-				<text v-for="(item, index) in searchList" :key="index">{{ item }}</text>
+				<text v-for="(item, index) in searchList" :key="index" @tap.stop="value = item">{{ item }}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	const KEY = 'searchList'
+	
 	export default {
-		data() {
+		data () {
 			return {
 				value: '',
 				searchList: []
 			}
 		},
+		onLoad () {
+			this.searchList = uni.getStorageSync(KEY) || []
+		},
 		methods: {
 			cancel () {
 				this.value = ''
 			},
+			
 			search () {
-				this.searchList.push(this.value)
+				if (this.value.trim() === '') return
+				if (this.searchList.includes(this.value.trim())) {
+					this.value = ''
+					return
+				}
+				this.searchList.push(this.value.trim())
+				this.searchList = [...new Set(this.searchList)]
+				
+				if(this.searchList.length > 10) {
+					this.searchList.shift()
+				}
+				uni.setStorageSync(KEY, this.searchList)
 				this.cancel()
 			},
+			
 			clear () {
 				this.searchList = []
+				uni.removeStorageSync(KEY)
 			}
 		}
 	}

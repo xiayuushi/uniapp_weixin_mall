@@ -2,7 +2,7 @@
 	<view class="search">
 		<view class="search-item" :class="{ 'isfocus':isfocus }">
 			<icon type="search" size="16" />
-			<input type="text" :value="value" placeholder="搜索" @focus="focus" @blur="isfocus=false" />
+			<input type="text" v-model="value" placeholder="搜索" @focus.stop="focus" @blur.stop="isfocus=false" />
 		</view>
 	</view>
 </template>

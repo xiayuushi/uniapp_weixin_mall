@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<Search />
+		<searchbar />
 		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item class="swiper-item" v-for="item in swipers" :key="item.goods_id">
 				<navigator :url="item.navigator_url" :open-type="item.open_type">
@@ -34,10 +34,10 @@
 </template>
 
 <script>
-	import Search from '../../components/Search'
+	import searchbar from '../../components/searchbar/index.vue'
 	export default {
 		components: {
-			Search
+			searchbar
 		},
 		data () {
 			return {
