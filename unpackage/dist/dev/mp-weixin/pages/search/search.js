@@ -97,8 +97,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = _vm.value.trim()
-
   if (!_vm._isMounted) {
     _vm.e0 = function($event, item) {
       var _temp = arguments[arguments.length - 1].currentTarget.dataset,
@@ -111,15 +109,6 @@ var render = function() {
       _vm.value = item
     }
   }
-
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        g0: g0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -168,14 +157,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
-var KEY = 'searchList';var _default =
+var KEY = 'searchList';var searchbox = function searchbox() {__webpack_require__.e(/*! require.ensure | components/searchbox/index */ "components/searchbox/index").then((function () {return resolve(__webpack_require__(/*! ../../components/searchbox/index.vue */ 64));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 {
+  components: { searchbox: searchbox },
   data: function data() {
     return {
       value: '',
@@ -183,6 +170,9 @@ var KEY = 'searchList';var _default =
 
   },
   onLoad: function onLoad() {
+
+  },
+  onShow: function onShow() {
     this.searchList = uni.getStorageSync(KEY) || [];
   },
   methods: {

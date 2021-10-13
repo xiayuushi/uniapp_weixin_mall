@@ -1,10 +1,6 @@
 <template>
 	<view>
-		<view class="top">
-			<icon type="search" size="20" />
-			<input type="text" v-model="value" placeholder="请输入你想要的商品" @confirm.stop="search" />
-			<button type="default" plain v-if="value.length !== 0 && value.trim()" @tap.stop="cancel">取消</button>
-		</view>
+		<searchbox v-model="value"  @search="search" @cancel="cancel"/>
 		<view class="content">
 			<view class="title">
 				<text>历史搜索</text>
@@ -19,8 +15,10 @@
 
 <script>
 	const KEY = 'searchList'
+	import searchbox from '../../components/searchbox/index.vue'
 	
 	export default {
+		components: { searchbox },
 		data () {
 			return {
 				value: '',
@@ -28,6 +26,9 @@
 			}
 		},
 		onLoad () {
+			
+		},
+		onShow () {
 			this.searchList = uni.getStorageSync(KEY) || []
 		},
 		methods: {
@@ -60,39 +61,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.top {
-		display: flex;
-		align-items: center;
-		height: 114rpx;
-		padding: 26px 20rpx;
-		box-sizing: border-box;
-		background-color: #eee;
-
-		icon {
-			position: absolute;
-			top: 40rpx;
-			left: 32rpx;
-		}
-
-		input {
-			flex: 1;
-			height: 60rpx;
-			padding-left: 80rpx;
-			margin-right: 20rpx;
-			font-size: 26rpx;
-			border-radius: 4rpx;
-			background-color: #fff;
-		}
-
-		button {
-			width: 156rpx;
-			height: 60rpx;
-			line-height: 60rpx;
-			font-size: 26rpx;
-			border-color: #dfdfdf;
-		}
-	}
-
 	.content {
 		position: absolute;
 		top: 114rpx;
