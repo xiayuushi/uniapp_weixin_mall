@@ -12,14 +12,12 @@
 				"navigationBarTitleText": "购物车",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/category/category",
 			"style": {
 				"navigationBarTitleText": "分类",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/me/me",
 			"style": {
@@ -32,7 +30,13 @@
 				"navigationBarTitleText": "搜索",
 				"enablePullDownRefresh": false
 			}
-
+		}, {
+			"path": "pages/search_result/search_result",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 50
+			}
 		}
 	],
 	"tabBar": {

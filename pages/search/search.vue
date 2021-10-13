@@ -7,14 +7,14 @@
 				<icon type="clear" size="20" @tap.stop="clear" v-if="searchList.length !== 0" />
 			</view>
 			<view class="tag">
-				<text v-for="(item, index) in searchList" :key="index" @tap.stop="value = item">{{ item }}</text>
+				<text v-for="(item, index) in searchList" :key="index" @tap.stop="clicktag(item)">{{ item }}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	const KEY = 'searchList'
+	import { KEY } from '../../utils/contants.js'
 	import searchbox from '../../components/searchbox/index.vue'
 	
 	export default {
@@ -25,11 +25,9 @@
 				searchList: []
 			}
 		},
-		onLoad () {
-			
-		},
 		onShow () {
 			this.searchList = uni.getStorageSync(KEY) || []
+			this.cancel()
 		},
 		methods: {
 			cancel () {
@@ -49,12 +47,19 @@
 					this.searchList.shift()
 				}
 				uni.setStorageSync(KEY, this.searchList)
+				uni.navigateTo({ url:`/pages/search_result/search_result?query=${this.value}` })
 				this.cancel()
+				
 			},
 			
 			clear () {
 				this.searchList = []
 				uni.removeStorageSync(KEY)
+			},
+			
+			clicktag (item) {
+				this.value = item
+				uni.navigateTo({ url:`/pages/search_result/search_result?query=${this.value}` })
 			}
 		}
 	}

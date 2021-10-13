@@ -1,0 +1,1 @@
+export const KEY = 'search_list'

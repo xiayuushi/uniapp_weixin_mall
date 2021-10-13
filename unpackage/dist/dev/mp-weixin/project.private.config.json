@@ -19,9 +19,9 @@
      "scene": null
     },
     {
-     "name": "pages/category/category",
-     "pathName": "pages/category/category",
-     "query": "",
+     "name": "pages/search_result/search_result",
+     "pathName": "pages/search_result/search_result",
+     "query": "query=小米",
      "scene": null
     }
    ]
