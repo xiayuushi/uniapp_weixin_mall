@@ -259,8 +259,12 @@ var _contants = __webpack_require__(/*! ../../utils/contants.js */ 50);function 
     },
 
     tapClick: function tapClick(activeIndex) {
-      if (activeIndex === 2 && this.activeIndex === activeIndex) this.arrowUp = !this.arrowUp;
+      if (activeIndex === 2 && this.activeIndex === activeIndex) this.arrowUp = !this.arrowUp; // 价格排序箭头切换
       this.activeIndex = activeIndex;
+    },
+
+    toDetail: function toDetail(id) {
+      uni.navigateTo({ url: "/pages/goods_detail/goods_detail?id=".concat(id) });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

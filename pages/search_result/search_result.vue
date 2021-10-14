@@ -14,7 +14,7 @@
 				</view>
 			</view>
 			<view class="list" v-if="goods && goods.length !== 0">
-				<view class="item" v-for="item in mockSort" :key="item.goods_id">
+				<view class="item" v-for="item in mockSort" :key="item.goods_id" @tap="toDetail(item.goods_id)">
 					<image :src="item.goods_small_logo"></image>
 					<view class="detail">
 						<text class="title">{{ item.goods_name }}</text>
@@ -76,11 +76,11 @@
 			}
 		},
 		methods: {
-			cancel() {
+			cancel () {
 				uni.navigateBack()
 			},
 			
-			search() {
+			search () {
 				// 手动搜索商品，必须重置触底加载状态、重置页码
 				this.onReachBottomStatus = false
 				this.pagenum = 1
@@ -126,9 +126,13 @@
 				uni.hideLoading()
 			},
 
-			tapClick(activeIndex) {
-				if (activeIndex === 2 && this.activeIndex === activeIndex) this.arrowUp = !this.arrowUp
+			tapClick (activeIndex) {
+				if (activeIndex === 2 && this.activeIndex === activeIndex) this.arrowUp = !this.arrowUp // 价格排序箭头切换
 				this.activeIndex = activeIndex
+			},
+			
+			toDetail (id) {
+				uni.navigateTo({ url:`/pages/goods_detail/goods_detail?id=${id}` })
 			}
 		}
 
