@@ -1,4 +1,6 @@
 <script>
+	import { CARTKEY } from '@/utils/contants'
+	
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
@@ -7,7 +9,7 @@
 			console.log('App Show')
 		},
 		onHide: function() {
-			console.log('App Hide')
+			uni.setStorageSync(CARTKEY, this.$store.state.cartList)
 		}
 	}
 </script>

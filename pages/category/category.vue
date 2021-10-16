@@ -25,7 +25,8 @@
 </template>
 
 <script>
-	import searchbar from '../../components/searchbar/index.vue'
+	import searchbar from '@/components/searchbar'
+	
 	export default {
 		components: {
 			searchbar
@@ -41,9 +42,7 @@
 		},
 		methods: {
 			async getCategory() {
-				const { message } = await this.$request({
-					url: '/categories'
-				})
+				const { message } = await this.$request({ url: '/categories' })
 				this.categoryData = message
 			}
 		}

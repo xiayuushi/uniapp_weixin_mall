@@ -34,11 +34,10 @@
 </template>
 
 <script>
-	import searchbar from '../../components/searchbar/index.vue'
+	import searchbar from '@/components/searchbar/index.vue'
+	
 	export default {
-		components: {
-			searchbar
-		},
+		components: { searchbar },
 		data () {
 			return {
 				isShow: false,
@@ -57,28 +56,19 @@
 		},
 		methods: {
 			async getSwipers () {
-				const { message } = await this.$request({
-					url: '/home/swiperdata'
-				})
+				const { message } = await this.$request({ url: '/home/swiperdata' })
 				this.swipers = message
 			},
 			async getNavs () {
-				const { message } = await this.$request({
-					url: '/home/catitems'
-				})
+				const { message } = await this.$request({ url: '/home/catitems' })
 				this.navs = message
 			},
 			async getFloors () {
-				const { message } = await this.$request({
-					url: '/home/floordata'
-				})
+				const { message } = await this.$request({ url: '/home/floordata' })
 				this.floors = message
 			},
 			toTop () {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					 duration: 600
-				})
+				uni.pageScrollTo({ scrollTop: 0, duration: 600 })
 			}
 		}
 	}

@@ -23,6 +23,12 @@
      "pathName": "pages/goods_detail/goods_detail",
      "query": "id=57224",
      "scene": null
+    },
+    {
+     "name": "pages/cart/cart",
+     "pathName": "pages/cart/cart",
+     "query": "goods_ids=57224,50968",
+     "scene": null
     }
    ]
   }

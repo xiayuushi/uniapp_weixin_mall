@@ -27,8 +27,8 @@
 </template>
 
 <script>
-	import { KEY } from '../../utils/contants.js'
-	import searchbox from '../../components/searchbox/index.vue'
+	import { KEY } from '@/utils/contants.js'
+	import searchbox from '@/components/searchbox/index.vue'
 
 	export default {
 		components: { searchbox },

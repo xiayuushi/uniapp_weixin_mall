@@ -70,7 +70,7 @@
 				</view>
 			</view>
 			<view class="right-box">
-				<view class="flex1 right-box-item yellow">加入购物车</view>
+				<view class="flex1 right-box-item yellow" @tap="add2cart">加入购物车</view>
 				<view class="flex1 right-box-item red">立即购买</view>
 			</view>
 		</view>
@@ -78,6 +78,8 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex'
+	
 	export default {
 		data () {
 			return {
@@ -91,6 +93,7 @@
 			this.getGoodsDetail(id)
 		},
 		methods: {
+			...mapMutations(['ADD2CART']),
 			toggleDetail (index) {
 				this.toggleIndex = index // 图文介绍、规格参数的内容切换
 			},
@@ -98,9 +101,7 @@
 				this.starIndex = !this.starIndex // 收藏、取消收藏
 			},
 			async getGoodsDetail (id) {
-				const { message } = await this.$request({
-					url: `/goods/detail?goods_id=${id}`
-				})
+				const { message } = await this.$request({ url: `/goods/detail?goods_id=${id}` })
 				this.goodsDetial = message
 			},
 			previewImage (index) {
@@ -108,6 +109,9 @@
 			},
 			toCart () {
 				uni.switchTab({ url:'/pages/cart/cart' })
+			},
+			add2cart () {
+				this.ADD2CART(this.goodsDetial.goods_id)
 			}
 		}
 	}
