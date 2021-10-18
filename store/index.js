@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		cartList: uni.getStorageSync(CARTKEY) || [],
+		userInfo: {}
 	},
 	
 	mutations: {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
 		},
 		SYNCCART(state, completeCartInfo) {
 			state.cartList = completeCartInfo
+		},
+		SETUSERINFO(state, userInfo) {
+			state.userInfo = userInfo
 		}
 	},
 	

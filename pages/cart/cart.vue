@@ -32,8 +32,7 @@
 									<view class="row">
 										<view class="price">￥<text>{{ item.goods_price }}</text>.00</view>
 										<view class="count">
-											<uni-number-box v-model="item.num" @change="change(item)">
-											</uni-number-box>
+											<uni-number-box v-model="item.num" @change="change(item)"></uni-number-box>
 										</view>
 									</view>
 								</view>
@@ -68,22 +67,21 @@
 						<text>包含运费</text>
 					</view>
 				</view>
-				<view class=" settlement">
+				<view class="settlement" @tap="toPay">
 					<text>结算({{ totalNum }})</text>
 				</view>
 			</view>
 		</view>
 		<view class="empty-panel" v-else>
-			<image src="https://emojipedia-us.s3.amazonaws.com:443/content/2021/02/20/facepalm_android_7021.png">
-			</image>
-			<view>空空如也</view>
+			<view class="iconfont icon-ziyuan"></view>
+			<view class="tips">你还没有添加任何商品</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import { mapState, mapMutations } from 'vuex'
-	import { ADDRESSKEY } from '@/utils/contants.js'
+	import { ADDRESSKEY, TOKENKEY } from '@/utils/contants.js'
 
 	export default {
 		data () {
@@ -196,11 +194,32 @@
 						uni.setStorageSync(ADDRESSKEY, this.userAddress)
 					}
 				})
+			},
+			toPay () {
+				if (this.totalNum === 0) {
+					return uni.showToast({ title: '请选择商品', icon:'error' })
+				}
+				
+				if (!this.userAddress.telNumber) {
+					return uni.showToast({ title:'请选择收货地址', icon: 'error' })	
+				}
+				
+				if (!uni.getStorageSync(TOKENKEY)) {
+					uni.showModal({
+						content: '当前并未登录，请先登录',
+						showCancel: false,
+						success: res => {
+							if (res.confirm) return uni.navigateTo({ url: '/pages/login/login' })
+						}
+					})
+				}
+				
+				uni.navigateTo({ url: '/pages/pay/pay' })	
 			}
 		}
 	}
 
-	// 1、当前页面是tabbar页面，加入执行栈后会被缓存，页面不会被销毁，onLoad周期不会随页面切换而执行多次
+	// 1、当前页面是tabbar页面，加入执行栈后会被缓存，页面不会被销毁，onLoad周期不会随页面切换而再次执行
 	// 2、如果在切换tabbar页面时需要更新数据，应该在onShow周期中执行数据更新
 	// 3、vuex只是存储了商品id、选中状态、数量，但是页面渲染所需要的数据还有商品图片、商品名称、商品价格
 	// 4、因此需要整合vuex的数据与购物车接口返回的商品数据，这两部分整合后的数据，才能完整用于页面渲染
@@ -460,18 +479,19 @@
 		}
 
 		.empty-panel {
-			padding: 20rpx;
-			font-size: 70rpx;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
 			text-align: center;
+			color: #5c5c5c;
+			background-color: #f4f4f4;
 
-			image {
-				width: 200rpx;
-				height: 200rpx;
-			}
-
-			view {
-				height: 200rpx;
-				line-height: 200rpx;
+			.iconfont {
+				font-size: 200rpx;
+				color: #d5685c;
+				margin: 93rpx 0 47rpx;
 			}
 		}
 	}

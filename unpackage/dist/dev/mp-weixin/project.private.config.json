@@ -29,6 +29,24 @@
      "pathName": "pages/cart/cart",
      "query": "goods_ids=57224,50968",
      "scene": null
+    },
+    {
+     "name": "pages/login/login",
+     "pathName": "pages/login/login",
+     "query": "",
+     "scene": null
+    },
+    {
+     "name": "pages/me/me",
+     "pathName": "pages/me/me",
+     "query": "",
+     "scene": null
+    },
+    {
+     "name": "pages/pay/pay",
+     "pathName": "pages/pay/pay",
+     "query": "",
+     "scene": null
     }
    ]
   }

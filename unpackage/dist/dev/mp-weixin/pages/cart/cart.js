@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 81))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 89))
     }
   }
 } catch (e) {
@@ -154,8 +154,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 23));
-
-
 
 
 
@@ -351,11 +349,32 @@ var _contants = __webpack_require__(/*! @/utils/contants.js */ 9);function _inte
           uni.setStorageSync(_contants.ADDRESSKEY, _this3.userAddress);
         } });
 
+    },
+    toPay: function toPay() {
+      if (this.totalNum === 0) {
+        return uni.showToast({ title: '请选择商品', icon: 'error' });
+      }
+
+      if (!this.userAddress.telNumber) {
+        return uni.showToast({ title: '请选择收货地址', icon: 'error' });
+      }
+
+      if (!uni.getStorageSync(_contants.TOKENKEY)) {
+        uni.showModal({
+          content: '当前并未登录，请先登录',
+          showCancel: false,
+          success: function success(res) {
+            if (res.confirm) return uni.navigateTo({ url: '/pages/login/login' });
+          } });
+
+      }
+
+      uni.navigateTo({ url: '/pages/pay/pay' });
     } }) };
 
 
 
-// 1、当前页面是tabbar页面，加入执行栈后会被缓存，页面不会被销毁，onLoad周期不会随页面切换而执行多次
+// 1、当前页面是tabbar页面，加入执行栈后会被缓存，页面不会被销毁，onLoad周期不会随页面切换而再次执行
 // 2、如果在切换tabbar页面时需要更新数据，应该在onShow周期中执行数据更新
 // 3、vuex只是存储了商品id、选中状态、数量，但是页面渲染所需要的数据还有商品图片、商品名称、商品价格
 // 4、因此需要整合vuex的数据与购物车接口返回的商品数据，这两部分整合后的数据，才能完整用于页面渲染

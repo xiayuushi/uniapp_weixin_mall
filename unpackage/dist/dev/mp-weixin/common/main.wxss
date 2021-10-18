@@ -19,9 +19,9 @@
 
 @font-face {
   font-family: "iconfont"; /* Project id 2866620 */
-  src: url('//at.alicdn.com/t/font_2866620_1jf5ipxjwfm.woff2?t=1634266956239') format('woff2'),
-       url('//at.alicdn.com/t/font_2866620_1jf5ipxjwfm.woff?t=1634266956239') format('woff'),
-       url('//at.alicdn.com/t/font_2866620_1jf5ipxjwfm.ttf?t=1634266956239') format('truetype');
+  src: url('//at.alicdn.com/t/font_2866620_vgvd7jugam.woff2?t=1634447326083') format('woff2'),
+       url('//at.alicdn.com/t/font_2866620_vgvd7jugam.woff?t=1634447326083') format('woff'),
+       url('//at.alicdn.com/t/font_2866620_vgvd7jugam.ttf?t=1634447326083') format('truetype');
 }
 
 .iconfont {
@@ -30,6 +30,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ziyuan:before {
+  content: "\e617";
+}
+
+.icon-zuojiantou:before {
+  content: "\e67c";
+}
+
+.icon-xiaoxi:before {
+  content: "\e68c";
+}
+
+.icon-shezhi:before {
+  content: "\e771";
+}
+
+.icon-youjiantou:before {
+  content: "\e622";
 }
 
 .icon-gouxuan:before {

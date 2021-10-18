@@ -229,16 +229,18 @@
   line-height: 100rpx;
 }
 .cart-container .empty-panel.data-v-0f00adf4 {
-  padding: 20rpx;
-  font-size: 70rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   text-align: center;
+  color: #5c5c5c;
+  background-color: #f4f4f4;
 }
-.cart-container .empty-panel image.data-v-0f00adf4 {
-  width: 200rpx;
-  height: 200rpx;
-}
-.cart-container .empty-panel view.data-v-0f00adf4 {
-  height: 200rpx;
-  line-height: 200rpx;
+.cart-container .empty-panel .iconfont.data-v-0f00adf4 {
+  font-size: 200rpx;
+  color: #d5685c;
+  margin: 93rpx 0 47rpx;
 }
 

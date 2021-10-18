@@ -8548,9 +8548,10 @@ function walkJsonObj(jsonObj, walk) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.ADDRESSKEY = exports.CARTKEY = exports.KEY = void 0;var KEY = 'search_list';exports.KEY = KEY;
+Object.defineProperty(exports, "__esModule", { value: true });exports.TOKENKEY = exports.ADDRESSKEY = exports.CARTKEY = exports.KEY = void 0;var KEY = 'search_list';exports.KEY = KEY;
 var CARTKEY = 'cart_list';exports.CARTKEY = CARTKEY;
 var ADDRESSKEY = 'user_address';exports.ADDRESSKEY = ADDRESSKEY;
+var TOKENKEY = 'user_token';exports.TOKENKEY = TOKENKEY;
 
 /***/ }),
 /* 10 */,
@@ -8699,7 +8700,8 @@ _vue.default.use(_vuex.default);
 
 var store = new _vuex.default.Store({
   state: {
-    cartList: uni.getStorageSync(_contants.CARTKEY) || [] },
+    cartList: uni.getStorageSync(_contants.CARTKEY) || [],
+    userInfo: {} },
 
 
   mutations: {
@@ -8710,6 +8712,9 @@ var store = new _vuex.default.Store({
     },
     SYNCCART: function SYNCCART(state, completeCartInfo) {
       state.cartList = completeCartInfo;
+    },
+    SETUSERINFO: function SETUSERINFO(state, userInfo) {
+      state.userInfo = userInfo;
     } },
 
 
