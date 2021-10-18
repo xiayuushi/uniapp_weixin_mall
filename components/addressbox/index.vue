@@ -1,5 +1,5 @@
 <template>
-	<view class="pay-container">
+	<view class="addressbox-container">
 		<view class="top-area" @tap="$emit('chooseAddress')">
 			<view class="content">
 				<view class="item">
@@ -17,6 +17,7 @@
 
 <script>
 	export default {
+		name: 'addressbox',
 		props:['userName', 'telNumber', 'address']
 	}
 </script>

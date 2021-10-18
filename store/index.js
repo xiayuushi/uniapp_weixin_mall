@@ -14,13 +14,21 @@ const store = new Vuex.Store({
 		ADD2CART(state, id) {
 			const { cartList } = state 
 			const index = cartList.findIndex( item => item.goods_id === id )
-			index === -1 ? cartList.push({goods_id: id, num: 1, checked: true}) : cartList[index].num++
+			if (index === -1){ 
+				cartList.push({goods_id: id, num: 1, checked: true})
+			} else {
+				cartList[index].num++
+				cartList[index].checked = true
+			}
 		},
 		SYNCCART(state, completeCartInfo) {
 			state.cartList = completeCartInfo
 		},
 		SETUSERINFO(state, userInfo) {
 			state.userInfo = userInfo
+		},
+		DELPAYCART(state){
+			state.cartList = state.cartList.filter(item => !item.checked || item.num ===0 )
 		}
 	},
 	
@@ -37,5 +45,7 @@ export default store
 // 3、加入到购物车的商品数据格式 cartList: [{ id: '商品id', mum: 1, checked: true },{...}]   
 // 4、cartList内部对象id字段名必须参考实际的接口返回，此处只是示范加入到购物车商品的数据形式
 // 5、vuex官网提供的导入方式不适用于uniapp项目，因此导入方式必须更改为 import { createLogger } from 'vuex' 否则在uniapp项目中会报错"文件查找失败"
-// 6、mutations对象的方法第二参数形参可以随意命名，但数组遍历时item点出的那个必须是state.cartList数组中存在的字段名，此处为了说明并没有命名成一致的进行简写
+// 6、在uniapp项目中使用vuex无需安装，uniapp已经内置vuex，直接导入即可使用，但与常规vue项目不同的是，在uniapp项目中使用vuex需要手动将store对象挂载到vue原型对象上
+// 7、mutations对象的方法第二参数形参可以随意命名，但数组遍历时item点出的那个必须是state.cartList数组中存在的字段名，此处为了说明并没有命名成一致的进行简写
+// 8、DELPAYCART 删除参与预支付结算的购物车商品，反向思维就是只保留不参与预支付结算的购物车商品
 

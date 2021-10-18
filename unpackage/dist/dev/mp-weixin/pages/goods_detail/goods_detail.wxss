@@ -64,6 +64,15 @@
   justify-content: center;
   font-size: 24rpx;
 }
+.goods-detail-container .fixed .left-box .cartIcon {
+  position: relative;
+}
+.goods-detail-container .fixed .left-box .cartIcon .badge {
+  position: absolute;
+  top: 0;
+  right: 22rpx;
+  color: #f00;
+}
 .goods-detail-container .fixed .left-box .iconfont {
   font-size: 48rpx;
   margin-bottom: 10rpx;

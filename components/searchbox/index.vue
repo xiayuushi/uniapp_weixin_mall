@@ -8,13 +8,18 @@
 
 <script>
 	export default {
+		name: 'searchbox',
 		props: ['value'],
 		methods: {
 			confirm(e) {
-				this.$emit('search', e.detail.value) // 可以不用定义方法，直接在行内使用$event获取当前confirm函数形参的值e
+				this.$emit('search', e.detail.value)
 			}
 		}
 	}
+	
+	// 1、可以不用定义方法，直接在行内使用$event获取confirm函数形参的值e
+	// 2、外部使用者需要在使用该封装组件时，传入当前组件需要的props参数，以及实现当前组件的$emit中传输的方法
+	
 </script>
 
 <style lang="scss">

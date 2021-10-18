@@ -28,9 +28,7 @@
 	import searchbar from '@/components/searchbar'
 	
 	export default {
-		components: {
-			searchbar
-		},
+		components: { searchbar },
 		data () {
 			return {
 				categoryData: [],
@@ -41,7 +39,7 @@
 			this.getCategory()
 		},
 		methods: {
-			async getCategory() {
+			async getCategory () {
 				const { message } = await this.$request({ url: '/categories' })
 				this.categoryData = message
 			}

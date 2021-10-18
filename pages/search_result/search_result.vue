@@ -71,7 +71,6 @@
 							// Array.sort()排序后会改写源数组，因此复制源数组进行操作
 							return _temp.sort((a, b) => b.goods_price - a.goods_price)
 						}
-
 				}
 			}
 		},
@@ -137,6 +136,9 @@
 		}
 
 	}
+	
+	// 1、商品按照某个标准排序通常是调用接口来实现，此处没有排序相关接口，只是写了个数组方法进行模拟
+	
 </script>
 
 <style lang="scss" scoped>

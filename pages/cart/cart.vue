@@ -80,47 +80,31 @@
 </template>
 
 <script>
+	import mixinCart from '@/mixins/mixin_cart.js'
 	import { mapState, mapMutations } from 'vuex'
-	import { ADDRESSKEY, TOKENKEY } from '@/utils/contants.js'
+	import { CARTKEY, TOKENKEY } from '@/utils/contants.js'
 
 	export default {
-		data () {
-			return {
-				isChecked: false,
-				userAddress: uni.getStorageSync(ADDRESSKEY) || {},
-				completeCartInfo: [] // vuex与接口整合后的可用于页面渲染的完整购物车数据
-			}
-		},
-		onShow () {
-			this.getCompleteCartInfo()
-		},
+		mixins: [ mixinCart ],
 		watch: {
 			completeCartInfo: {
-				handler(currentVal, oldVal){
-				const _completeCartInfo =	currentVal.map(item => {
+				handler(currentVal, oldVal) {
+					const _completeCartInfo = currentVal.map(item => {
 						const { num, checked, goods_id } = item
 						return { num, checked, goods_id }
 					})
-				this.SYNCCART(_completeCartInfo)
+					this.SYNCCART(_completeCartInfo)
 				},
 				deep: true
 			}
 		},
 		computed: {
-			...mapState(['cartList']), 
 			totalNum () {
 				let num = 0
 				this.completeCartInfo.forEach(item => { 
 					if(item.checked) num += item.num
 				})
 				return num
-			},
-			totalPrice () {
-				let price = 0
-				this.completeCartInfo.map(item => { 
-					if(item.checked) price += item.num * item.goods_price 
-				})
-				return price
 			},
 			isAllChecked: {
 				get (){
@@ -129,23 +113,10 @@
 				set (v){
 					this.completeCartInfo.map(item => item.checked = v) // 通过setter才能改写计算属性的值，形参就是外界对计算属性的赋值
 				}
-			},
-			address (){
-				const { provinceName, cityName, countyName, detailInfo, userName } = this.userAddress
-				if (provinceName){
-					return provinceName + cityName + countyName + detailInfo
-				}	else	{
-					return '请选择收货地址'
-				}
-			},
-			userName (){
-				const { userName } = this.userAddress
-				if (userName){
-					return userName
-				}	else	{
-					return '请选择收货人'
-				}
-			},
+			}
+		},
+		onHide () {
+			uni.setStorageSync(CARTKEY, this.$store.state.cartList)
 		},
 		methods: {
 			...mapMutations(['SYNCCART']),
@@ -172,28 +143,11 @@
 					}
 				})
 			},
-			async getCompleteCartInfo() {
-				const ids = this.cartList.map(item => item.goods_id).join()
-				const { message } = await this.$request({ url: `/goods/goodslist?goods_ids=${ids}` })
-				
-				this.completeCartInfo = message.map(v => {
-					const part = this.cartList.find(item => item.goods_id === v.goods_id)
-					return { ...v, ...part }
-				})
-			},
 			allChecked () {
 				return this.completeCartInfo.map(v => v.checked = true) // 常规方法实现点击"全选"按钮后，勾选上方购物车列表的全部商品
 			},
 			notChecked () {
 				return this.isAllChecked = false // 计算属性的setter实现点击 取消"全选"按钮后，上方购物车列表的全部商品取消勾选
-			},
-			chooseAddress () {
-				uni.chooseAddress({
-					success: res => {
-						this.userAddress = res
-						uni.setStorageSync(ADDRESSKEY, this.userAddress)
-					}
-				})
 			},
 			toPay () {
 				if (this.totalNum === 0) {
@@ -205,7 +159,7 @@
 				}
 				
 				if (!uni.getStorageSync(TOKENKEY)) {
-					uni.showModal({
+					return uni.showModal({
 						content: '当前并未登录，请先登录',
 						showCancel: false,
 						success: res => {
@@ -214,7 +168,8 @@
 					})
 				}
 				
-				uni.navigateTo({ url: '/pages/pay/pay' })	
+				uni.navigateTo({ url: '/pages/pay/pay' })
+				
 			}
 		}
 	}

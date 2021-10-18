@@ -1,0 +1,1 @@
+<view><button data-event-opts="{{[['tap',[['toHome',['$event']]]]]}}" bindtap="__e">回到首页</button><button data-event-opts="{{[['tap',[['toOrder',['$event']]]]]}}" bindtap="__e">查看订单</button></view>

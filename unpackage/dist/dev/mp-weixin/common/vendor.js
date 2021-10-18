@@ -8708,13 +8708,21 @@ var store = new _vuex.default.Store({
     ADD2CART: function ADD2CART(state, id) {var
       cartList = state.cartList;
       var index = cartList.findIndex(function (item) {return item.goods_id === id;});
-      index === -1 ? cartList.push({ goods_id: id, num: 1, checked: true }) : cartList[index].num++;
+      if (index === -1) {
+        cartList.push({ goods_id: id, num: 1, checked: true });
+      } else {
+        cartList[index].num++;
+        cartList[index].checked = true;
+      }
     },
     SYNCCART: function SYNCCART(state, completeCartInfo) {
       state.cartList = completeCartInfo;
     },
     SETUSERINFO: function SETUSERINFO(state, userInfo) {
       state.userInfo = userInfo;
+    },
+    DELPAYCART: function DELPAYCART(state) {
+      state.cartList = state.cartList.filter(function (item) {return !item.checked || item.num === 0;});
     } },
 
 
@@ -8731,7 +8739,9 @@ store;
 // 3、加入到购物车的商品数据格式 cartList: [{ id: '商品id', mum: 1, checked: true },{...}]   
 // 4、cartList内部对象id字段名必须参考实际的接口返回，此处只是示范加入到购物车商品的数据形式
 // 5、vuex官网提供的导入方式不适用于uniapp项目，因此导入方式必须更改为 import { createLogger } from 'vuex' 否则在uniapp项目中会报错"文件查找失败"
-// 6、mutations对象的方法第二参数形参可以随意命名，但数组遍历时item点出的那个必须是state.cartList数组中存在的字段名，此处为了说明并没有命名成一致的进行简写
+// 6、在uniapp项目中使用vuex无需安装，uniapp已经内置vuex，直接导入即可使用，但与常规vue项目不同的是，在uniapp项目中使用vuex需要手动将store对象挂载到vue原型对象上
+// 7、mutations对象的方法第二参数形参可以随意命名，但数组遍历时item点出的那个必须是state.cartList数组中存在的字段名，此处为了说明并没有命名成一致的进行简写
+// 8、DELPAYCART 删除参与预支付结算的购物车商品，反向思维就是只保留不参与预支付结算的购物车商品
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
@@ -10000,14 +10010,20 @@ module.exports = index_cjs;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;var BASEURL = 'https://www.uinav.com/api/public/v1';
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;var _contants = __webpack_require__(/*! @/utils/contants.js */ 9);
+var BASEURL = 'https://www.uinav.com/api/public/v1';
 
-function _default(_ref) {var url = _ref.url,_ref$method = _ref.method,method = _ref$method === void 0 ? 'get' : _ref$method,data = _ref.data;
+function _default(_ref) {var url = _ref.url,_ref$method = _ref.method,method = _ref$method === void 0 ? 'get' : _ref$method,data = _ref.data,addToken = _ref.addToken;
   return new Promise(function (resolve, reject) {
+    var header = {};
+    if (addToken) {
+      header.authorization = uni.getStorage(_contants.TOKENKEY);
+    }
     uni.request({
       url: BASEURL + url,
       method: method,
       data: data,
+      header: header,
       success: function success(res) {return resolve(res.data);},
       fail: function fail(err) {return reject(err);} });
 
@@ -10820,6 +10836,97 @@ if (hadRuntime) {
   })() || Function("return this")()
 );
 
+
+/***/ }),
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */
+/*!************************************************************!*\
+  !*** C:/Users/夏云遥/Desktop/xxx/uniapp/mixins/mixin_cart.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 23));var _vuex = __webpack_require__(/*! vuex */ 14);
+var _contants = __webpack_require__(/*! @/utils/contants.js */ 9);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+
+{
+  data: function data() {
+    return {
+      userAddress: uni.getStorageSync(_contants.ADDRESSKEY) || {},
+      completeCartInfo: [] // vuex与接口整合后的可用于页面渲染的完整购物车数据
+    };
+  },
+  onShow: function onShow() {
+    this.getCompleteCartInfo();
+  },
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapState)(['cartList'])), {}, {
+    totalNum: function totalNum() {
+      var num = 0;
+      this.completeCartInfo.map(function (item) {
+        if (item.checked) num += item.num;
+      });
+      return num;
+    },
+    totalPrice: function totalPrice() {
+      var price = 0;
+      this.completeCartInfo.map(function (item) {
+        if (item.checked) price += item.num * item.goods_price;
+      });
+      return price;
+    },
+    address: function address() {var _this$userAddress =
+      this.userAddress,provinceName = _this$userAddress.provinceName,cityName = _this$userAddress.cityName,countyName = _this$userAddress.countyName,detailInfo = _this$userAddress.detailInfo,userName = _this$userAddress.userName;
+      if (provinceName) {
+        return provinceName + cityName + countyName + detailInfo;
+      } else {
+        return '请选择收货地址';
+      }
+    },
+    userName: function userName() {var
+      userName = this.userAddress.userName;
+      if (userName) {
+        return userName;
+      } else {
+        return '请选择收货人';
+      }
+    } }),
+
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapMutations)(['SYNCCART'])), {}, {
+    getCompleteCartInfo: function getCompleteCartInfo() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var ids, _yield$_this$$request, message;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                ids = _this.cartList.map(function (item) {return item.goods_id;}).join();_context.next = 3;return (
+                  _this.$request({ url: "/goods/goodslist?goods_ids=".concat(ids) }));case 3:_yield$_this$$request = _context.sent;message = _yield$_this$$request.message;
+
+                _this.completeCartInfo = message.map(function (v) {
+                  var part = _this.cartList.find(function (item) {return item.goods_id === v.goods_id;});
+                  return _objectSpread(_objectSpread({}, v), part);
+                });case 6:case "end":return _context.stop();}}}, _callee);}))();
+    },
+
+    chooseAddress: function chooseAddress() {var _this2 = this;
+      uni.chooseAddress({
+        success: function success(res) {
+          _this2.userAddress = res;
+          uni.setStorageSync(_contants.ADDRESSKEY, _this2.userAddress);
+        } });
+
+    } }) };
+
+
+
+// 1、mixin混入，将多个组件中通用的逻辑抽取出来进行复用，可以抽取数据、方法、属性、生命周期、计算属性等组件中所有的js逻辑
+// 2、抽取出来之后，只需要在使用的地方进行导入并使用即可
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);

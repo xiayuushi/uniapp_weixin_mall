@@ -25,8 +25,8 @@
      "scene": null
     },
     {
-     "name": "pages/cart/cart",
-     "pathName": "pages/cart/cart",
+     "name": "pages/pay/pay",
+     "pathName": "pages/pay/pay",
      "query": "goods_ids=57224,50968",
      "scene": null
     },
@@ -37,14 +37,20 @@
      "scene": null
     },
     {
-     "name": "pages/me/me",
-     "pathName": "pages/me/me",
+     "name": "pages/cart/cart",
+     "pathName": "pages/cart/cart",
      "query": "",
      "scene": null
     },
     {
-     "name": "pages/pay/pay",
-     "pathName": "pages/pay/pay",
+     "name": "pages/order/order",
+     "pathName": "pages/order/order",
+     "query": "",
+     "scene": null
+    },
+    {
+     "name": "pages/xxx/xxx",
+     "pathName": "pages/xxx/xxx",
      "query": "",
      "scene": null
     }

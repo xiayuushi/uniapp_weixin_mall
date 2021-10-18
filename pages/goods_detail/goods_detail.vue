@@ -64,9 +64,10 @@
 					<text class="iconfont icon-kefu"></text>
 					<text>联系客服</text>
 				</view>
-				<view class="flex1 left-box-item" @tap="toCart">
+				<view class="flex1 left-box-item cartIcon" @tap="toCart">
 					<text class="iconfont icon-gouwuche"></text>
 					<text>购物车</text>
+					<uni-badge class="badge" :text="badge" type="error" size="small" v-if="totalNum && totalNum !== 0"></uni-badge>
 				</view>
 			</view>
 			<view class="right-box">
@@ -78,12 +79,17 @@
 </template>
 
 <script>
-	import { mapMutations } from 'vuex'
+	import mixinCart from '@/mixins/mixin_cart.js'
+	import { mapState, mapMutations } from 'vuex'
+	import { CARTKEY } from '@/utils/contants.js'
 	
 	export default {
+		mixins: [ mixinCart ],
 		data () {
 			return {
 				goodsDetial: {},
+				badge: 0,
+				num: 0,
 				starIndex: 0, // 0-未收藏 、1-已收藏
 				toggleIndex: 0 // 0-图文介绍 、1-规格参数
 			};
@@ -91,6 +97,30 @@
 		onLoad (options) {
 			const { id } = options
 			this.getGoodsDetail(id)
+			this.badge = this.cartList.filter(item => item.checked).map(item => item.num).reduce((pre,cur) => pre + cur)
+		},
+		computed: {
+			...mapState(['cartList']),
+			totalNum: { 
+				get (){
+					let num = 0
+					this.completeCartInfo.forEach(item => { 
+						if(item.checked) num += item.num
+					})
+					return num
+				},
+				set (v) {
+					return v
+				}
+			}
+		},
+		watch: {
+			num:{
+				handler(newValue, oldValue) {
+					this.badge = newValue
+				},
+				immediate: true,
+			}
 		},
 		methods: {
 			...mapMutations(['ADD2CART']),
@@ -112,6 +142,9 @@
 			},
 			add2cart () {
 				this.ADD2CART(this.goodsDetial.goods_id)
+				uni.setStorageSync(CARTKEY, this.$store.state.cartList)
+				uni.showToast({ title: '添加成功' })
+				this.num = this.cartList.filter(item => item.checked).map(item => item.num).reduce((pre,cur) => pre + cur)
 			}
 		}
 	}
@@ -160,6 +193,16 @@
 					align-items: center;
 					justify-content: center;
 					font-size: 24rpx;
+				}
+				
+				.cartIcon {
+					position: relative;
+					.badge {
+						position: absolute;
+						top: 0;
+						right: 22rpx;
+						color: #f00;
+					}
 				}
 
 				.iconfont {

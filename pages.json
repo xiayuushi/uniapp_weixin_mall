@@ -60,10 +60,23 @@
 		{
 			"path": "pages/pay/pay",
 			"style": {
+				"navigationBarTitleText": "支付",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/pay_result/pay_result",
+			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-
+		},
+		{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"tabBar": {
