@@ -12,8 +12,8 @@ Vue.prototype.$request = request
 
 App.mpType = 'app'
 const app = new Vue({
-	...App,
-	store
+  ...App,
+  store
 })
 
 app.$mount()
